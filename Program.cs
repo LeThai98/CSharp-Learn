@@ -1,4 +1,4 @@
-﻿using static System.Console;
+﻿using System;
 using static System.Math;
 
 
@@ -10,15 +10,38 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-           Samppham.Product product = new Samppham.Product("Laptop", 1000);
-           product.description = "Fake Product";
-              WriteLine(product.GetInfo());
-                WriteLine(product.description);
+           Action<string> logGreen = null;
+           Action<string> logRed = null;
 
-            Samppham.Product.ManuFactory manu = new Samppham.Product.ManuFactory();
-            manu.Name = "Samppham";
-            manu.Address = "Vietnam";
-            WriteLine(manu.Name);
+           logGreen += ShowGreenLog;
+           logRed += ShowRedLog;
+
+           CalSum(1, 2, logGreen, logRed);
+            CalSum(1, -2, logGreen, logRed);
+
         }
+
+        public static void CalSum(int a, int b, Action<string> logGreen, Action<string> logRed)
+        {
+            if(a + b >= 0)
+                logGreen?.Invoke($"Sum: {a + b}");
+            else
+                 logRed?.Invoke($"Sum: {a + b}");
+        }
+        
+        public static void ShowGreenLog(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        public static void ShowRedLog(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+
     }
 }

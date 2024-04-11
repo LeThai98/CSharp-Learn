@@ -1,0 +1,13 @@
+example about Delegate
+
++ Syntax to create Delegate : is the combination beteen the keyword delegate and the signature of the method that the delegate can point to.
++ Delegate is a Reference type: it is a class that can hold a reference to a method.
+=> Delegate declaration is a combination of Class and Method declaration : 
+    public delegate void MyDelegate(string message); // delegate ~ Class, void ~ method, string ~ parameter
+
++ Delegate can point to many methods, but it must have the same signature as the method it points to.
++ Delegate can be passed as a parameter or use Invoke method to call the method it points to.
++ Delegate can use with operators : = , += , -=
+
+Example about Delegate:
+ + Create a Method to Calculate the sum of two numbers that use delegate as a parameter to show the result with different color.
