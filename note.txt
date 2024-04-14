@@ -1,0 +1,17 @@
+Async/Await : is a pattern to write aschronous more than easily
+Async : Allow program execute asynchronous operations
+Await: block the below code to wait for asynchronous operation completed. But it will imediately return the Task  => NO BLOCK the Main Thread.
+Wait:  block the below code to wait for asynchronous operation completed. No return anything => Block ALL Another Operations( include Main Thread)
+** The way we put 'await' will create different asyn/await operations.
+ Ex1:
+    var r1 = RunTask1();
+    await r1;
+    var r2 =  RunTask2();
+    await r2;
+    => Wait for r1 completed -> run r2
+ Ex2:
+    var r1 = RunTask1();
+    var r2 =  RunTask2();
+    await r1;
+    await r2;
+    => r1 and r2 run asynchronously, but wait for the r1 completed firstly 
