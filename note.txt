@@ -15,3 +15,8 @@ Wait:  block the below code to wait for asynchronous operation completed. No ret
     await r1;
     await r2;
     => r1 and r2 run asynchronously, but wait for the r1 completed firstly 
+
+---------------------
+Work with Task
+- simple way to create asynchronous task- use Delay() method: 
+   await Task.Delay(1000);
