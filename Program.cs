@@ -14,7 +14,9 @@ namespace MyApp
             var r2 =  RunTask2();
             // await r1;
             // await r2;
-            Task.WaitAll(r1, r2);
+            
+            //Task.WaitAll(r1, r2);
+            await Task.WhenAll(r1, r2);
 
             var result1 = r1.Result;
             Console.WriteLine($"The program already {result1}");

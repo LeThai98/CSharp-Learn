@@ -20,3 +20,26 @@ Wait:  block the below code to wait for asynchronous operation completed. No ret
 Work with Task
 - simple way to create asynchronous task- use Delay() method: 
    await Task.Delay(1000);
+
+- wait many Task synchronously( block the current thread and until all Task completed)
+  Use Task.WaitAll when you want to synchronously wait for multiple tasks to complete before proceeding. - WaitAll():
+   Task.WaitAll(r1, r2);
+   
+   Ex:
+   Task r1 = Task.Run(() => { /* Do something */ });
+   Task r2 = Task.Run(() => { /* Do something */ });
+   Task.WaitAll(r1, r2);  // This will block until both r1 and r2 are complete
+   Console.WriteLine("All tasks completed");
+
+
+- wait many Task asynchronously(no block the current thread instead of returning a new Task that represents the completion of all the input tasks.) 
+  Use Task.WhenAll when you want to asynchronously wait for multiple tasks to complete without blocking the calling thread. - WhenAll():
+   await Task.WhenAll(r1, r2);
+
+   Ex:
+      Task r1 = Task.Run(() => { /* Do something */ });
+      Task r2 = Task.Run(() => { /* Do something */ });
+      await Task.WhenAll(r1, r2);  // This will not block, allowing other operations to continue
+      Console.WriteLine("All tasks completed");
+
+
