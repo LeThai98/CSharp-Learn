@@ -1,0 +1,8 @@
+We have a object : DI Container in the DI library -> DI Container is use to register the Class and it's Services.
+Class : ServiceCollection is resprent the DI Container.
+Flow to register and get service by DI:
+    1. Initial DI Container : ServiceCollection Class
+    2. Register Services to DI Container
+    3. Build ServiceProvider from DI Container: ServiceProvider serviceProvider = services.BuildServiceProvider();
+    4. Get Services from  ServiceProvider
+    
