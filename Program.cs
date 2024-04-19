@@ -1,6 +1,7 @@
 ﻿using CSharp_Learn.Interfaces;
 using CSharp_Learn.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using static System.Console;
 using static System.Math;
 using X = MyNameSpace;
@@ -9,64 +10,79 @@ namespace MyApp
 {
     internal class Program  
     {
-        public static IClassA CreateClassA(IServiceProvider serviceProvider)
-        {
-            ClassA A = new ClassA(serviceProvider.GetService<IClassB>(), "AAA");
-            return A;
-
-        }
+        
         static void Main(string[] args)
         {
-            /*
-            //Breaf breaf = new Breaf();
-            //Breakfast breakfast = new Breakfast(breaf);
-            //breakfast.Eat();
-
-
-            // initial DI Container
-            IServiceCollection services = new ServiceCollection();
-
-            // register services
-            services.AddSingleton<IBreaf, Breaf1>();
-            //services.AddSingleton<IBreaf, Breaf2>();
-            services.AddSingleton<Breakfast>();
-
-            // build Service Provider
-            var provider = services.BuildServiceProvider();
             
-            // get instance of service from Service Provider
-            //var breaf = provider.GetService<IBreaf>();
-
-            Breakfast breakfast = provider.GetService<Breakfast>();
-            breakfast.Eat();
-             */
 
             var services = new ServiceCollection();
 
+            // inject Options for Services
+            services.Configure<MyServiceOption>(
+                (options) =>
+                {
+                    options.Name = "Thai";
+                    options.Age = 26;
+                    options.Op1 = 1;
+                    options.Op2 = 2;
+                    options.Op3 = 3;
+                    options.Op4 = 4;
+                    options.Op5 = 5;
+                    options.Op6 = 6;
+                    options.Op7 = 7;
+                    options.Op8 = 8;
+                    options.Op9 = 9;
+                    options.Op10 = 10;
+                }
+           );
 
-         // DI with Delegate
-           // services.AddSingleton<IClassA, ClassA>(
-           //     (provider) =>
-           //     {
-           //         ClassA A = new ClassA(provider.GetService<IClassB>() , "AAA");
-           //         return A;
-           //     }
-           //);
-
-         // DI with Factory
-            services.AddSingleton<IClassA>(CreateClassA);
-
-            services.AddSingleton<IClassB, ClassB>();
+            services.AddSingleton<MyService>();
 
             var provider = services.BuildServiceProvider();
 
-            var classA = provider.GetService<IClassA>();
-            var classB = provider.GetService<IClassB>();
+            var myService = provider.GetService<MyService>();
+            myService.WriteMessage();
+            
+        }
+    }
 
-            //classB.ActionB();
-            classA.ActionA();
+    internal class MyServiceOption
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Op1 { get; set; }
+        public int Op2 { get; set; }
+        public int Op3 { get; set; }
+        public int Op4 { get; set; }
+        public int Op5 { get; set; }
+        public int Op6 { get; set; }
+        public int Op7 { get; set; }
+        public int Op8 { get; set; }
+        public int Op9 { get; set; }
+        public int Op10 { get; set; }
 
 
+    }
+    internal class MyService
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Op1 { get; set; }
+        public int Op2 { get; set; }
+        public int Op3 { get; set; }
+
+        public MyService(IOptions<MyServiceOption> options) 
+        {
+            Name = options.Value.Name;
+            Age = options.Value.Age;
+            Op1 = options.Value.Op1;
+            Op2 = options.Value.Op2;
+            Op3 = options.Value.Op3;
+        }
+
+        public void WriteMessage()
+        {
+            Console.WriteLine($" {Name}  -- Age:{Age} -- option:{Op1}");
         }
     }
 

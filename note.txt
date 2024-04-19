@@ -5,4 +5,7 @@ Flow to register and get service by DI:
     2. Register Services to DI Container
     3. Build ServiceProvider from DI Container: ServiceProvider serviceProvider = services.BuildServiceProvider();
     4. Get Services from  ServiceProvider
-    
+
+When we need to configure instance of Service: Use DI with Delegate/Factory
+
+When we need to inject Options of Service , let use Option Design Pattern in DI :  Microsoft.Extensions.Options;( IOptions)
