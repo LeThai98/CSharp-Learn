@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CSharp_Learn.Interfaces;
+using CSharp_Learn.Services;
+using Microsoft.Extensions.DependencyInjection;
 using static System.Console;
 using static System.Math;
 using X = MyNameSpace;
@@ -7,8 +9,15 @@ namespace MyApp
 {
     internal class Program  
     {
+        public static IClassA CreateClassA(IServiceProvider serviceProvider)
+        {
+            ClassA A = new ClassA(serviceProvider.GetService<IClassB>(), "AAA");
+            return A;
+
+        }
         static void Main(string[] args)
         {
+            /*
             //Breaf breaf = new Breaf();
             //Breakfast breakfast = new Breakfast(breaf);
             //breakfast.Eat();
@@ -30,8 +39,32 @@ namespace MyApp
 
             Breakfast breakfast = provider.GetService<Breakfast>();
             breakfast.Eat();
+             */
+
+            var services = new ServiceCollection();
 
 
+         // DI with Delegate
+           // services.AddSingleton<IClassA, ClassA>(
+           //     (provider) =>
+           //     {
+           //         ClassA A = new ClassA(provider.GetService<IClassB>() , "AAA");
+           //         return A;
+           //     }
+           //);
+
+         // DI with Factory
+            services.AddSingleton<IClassA>(CreateClassA);
+
+            services.AddSingleton<IClassB, ClassB>();
+
+            var provider = services.BuildServiceProvider();
+
+            var classA = provider.GetService<IClassA>();
+            var classB = provider.GetService<IClassB>();
+
+            //classB.ActionB();
+            classA.ActionA();
 
 
         }
