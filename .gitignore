@@ -21,6 +21,8 @@ mono_crash.*
 Debug/
 Obj/
 obj/
+bin
+packages
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
